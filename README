@@ -1,0 +1,2 @@
+This is a very basic article app, which I use as a class to extend in
+a number of places. It uses several other django apps that I've built.
