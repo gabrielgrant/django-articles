@@ -1,1 +1,2 @@
 PIL
+-e git://github.com/gabrielgrant/django-inline-edit.git#egg=django-inline-edit
