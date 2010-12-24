@@ -22,4 +22,11 @@ class ArticleImage(models.Model):
 	credit = models.CharField(max_length=200, blank=True)
 	caption = models.TextField(blank=True)
 	image = models.ImageField(upload_to=img_location)
-	
+
+def get_permalink_dict(article):
+	return {
+		'year': article.pub_date.strftime("%Y").lower(),
+		'month':article.pub_date.strftime("%b").lower(),
+		'day':article.pub_date.strftime("%d").lower(),
+		'slug': article.slug,
+	}
