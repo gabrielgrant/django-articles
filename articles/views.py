@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic import RedirectView, DetailView
+from django.views.generic.dates import DateDetailView
 from django.utils.decorators import classonlymethod
 from django.utils.html import strip_tags
 from inline_edit.views import ConditionalDispatchView
@@ -46,17 +47,17 @@ class ArticleView(ConditionalDispatchView):
 		return super(ArticleView, cls).as_view(**kwargs)
 
 	class Meta:
-		class true_view_class(RedirectView, DetailView):
+		class true_view_class(RedirectView, DateDetailView):
 			def get_redirect_url(self, **kwargs):
-				model = self.get_queryset().model
-				article = get_object_or_404(model, pk=kwargs['pk'])
+				queryset = self.get_queryset()
+				article = get_object_or_404(queryset, slug=kwargs['slug'])
 				return strip_link(article.body)
 				
-		false_view_class = DetailView
+		false_view_class = DateDetailView
 		@staticmethod
-		def condition_func_factory(true_model, false_model):
-			model = false_model
+		def condition_func_factory(true_queryset, false_queryset):
+			queryset = false_queryset
 			def condition_func(request, *args, **kwargs):
-				article = get_object_or_404(model, pk=kwargs['pk'])
+				article = get_object_or_404(queryset, pk=kwargs['pk'])
 				return is_link(article.body)
 			return condition_func
