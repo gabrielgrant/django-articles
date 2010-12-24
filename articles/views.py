@@ -12,7 +12,7 @@ def is_link(text):
 	stripped_text = strip_link(text)
 	return stripped_text and not (' ' in stripped_text)
 
-class ArticleView(ConditionalDispatchView):
+class BaseArticleView(ConditionalDispatchView):
 	"""
 	Dispatches a DetailView or a RedirectView, if the Article body is a link
 	
@@ -44,20 +44,29 @@ class ArticleView(ConditionalDispatchView):
 		# but queryset is set as a property on the view?
 		if 'model' in kwargs and 'queryset' not in kwargs:
 			kwargs['queryset'] = kwargs['model'].objects.filter(published=True)
-		return super(ArticleView, cls).as_view(**kwargs)
+		return super(BaseArticleView, cls).as_view(**kwargs)
 
 	class Meta:
-		class true_view_class(RedirectView, DateDetailView):
+		true_view_base = DetailView
+		class true_view_class(RedirectView, true_view_base):
 			def get_redirect_url(self, **kwargs):
 				queryset = self.get_queryset()
 				article = get_object_or_404(queryset, slug=kwargs['slug'])
 				return strip_link(article.body)
 				
-		false_view_class = DateDetailView
+		false_view_class = DetailView
 		@staticmethod
 		def condition_func_factory(true_queryset, false_queryset):
 			queryset = false_queryset
 			def condition_func(request, *args, **kwargs):
-				article = get_object_or_404(queryset, pk=kwargs['pk'])
+				article = get_object_or_404(queryset, slug=kwargs['slug'])
 				return is_link(article.body)
 			return condition_func
+
+class ArticleDateView(BaseArticleView):
+	class Meta(BaseArticleView.Meta):
+		true_view_base = DateDetailView
+		false_view_class = DateDetailView
+class ArticleSlugView(BaseArticleView):
+	pass
+	
