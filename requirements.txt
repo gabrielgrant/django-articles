@@ -1,3 +1,4 @@
 PIL
 -e git://github.com/gabrielgrant/django-inline-edit.git#egg=django-inline-edit
 -e git://github.com/gabrielgrant/django-ckeditor.git#egg=django-ckeditor
+-e git://github.com/gabrielgrant/django-ckeditor-filemodel-manager.git#egg=django-filemodel-manager
