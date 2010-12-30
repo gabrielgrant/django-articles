@@ -1,5 +1,5 @@
 from datetime import date
-
+from os.path import basename
 from django.db import models
 
 
@@ -15,7 +15,7 @@ class Article(models.Model):
 		return self.title
 
 def img_location(instance, filename):
-	return 'article_images/article_%d/%s'%(instance.story.id, filename)
+	return 'article_images/article_%d/%s'%(instance.article.id, basename(filename))
 
 class ArticleImage(models.Model):
 	article = models.ForeignKey('Article', related_name='images')
