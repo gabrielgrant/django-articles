@@ -15,9 +15,9 @@ setup(
         'django-html-field',
     ],
     dependency_links = [
-    	'http://github.com/gabrielgrant/django-inline-edit/tarball/master#egg=django-inline-edit'
-    	'http://github.com/gabrielgrant/django-ckeditor/tarball/master#egg=django-ckeditor'
-    	'http://github.com/gabrielgrant/django-ckeditor-filemodel-manager/tarball/master#egg=django-ckeditor-filemodel-manager'
+    	'http://github.com/gabrielgrant/django-inline-edit/tarball/master#egg=django-inline-edit',
+    	'http://github.com/gabrielgrant/django-ckeditor/tarball/master#egg=django-ckeditor',
+    	'http://github.com/gabrielgrant/django-ckeditor-filemodel-manager/tarball/master#egg=django-ckeditor-filemodel-manager',
         'http://github.com/gabrielgrant/django-html-field/tarball/master#egg=django-html-field',
     ]
 )
