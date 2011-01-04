@@ -1,2 +1,16 @@
 This is a very basic article app, which I use as a class to extend in
 a number of places. It uses several other django apps that I've built.
+
+
+Installation
+
+add django-articles and its dependencies to the installed_apps list:
+
+- static_filtered_images
+- ckeditor
+- ckeditor_filemodel_manager
+- articles
+
+add a resize setting:
+
+ ARTICLE_IMAGE_RESIZE = {'width':280, 'style':"=="}

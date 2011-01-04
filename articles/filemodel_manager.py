@@ -4,7 +4,7 @@ from articles.models import Article, ArticleImage
 
 class ArticleManager(manager.ModelManager):
 	image_set_fieldname = 'images'
-	image_fieldname = 'image'
+	image_fieldname = 'display_image'
 
 manager.site.register(Article, 'body', ArticleManager, use_ckeditor_formfield=True)
 #)

@@ -1,7 +1,11 @@
 from datetime import date
 from os.path import basename
 from django.db import models
+from django.conf import settings
 
+from static_filtered_images.fields import FilteredImageField
+from static_filtered_images.image_filters import  \
+	ResizeFilter, TextWatermarkFilter
 
 class Article(models.Model):
 	title = models.CharField(max_length=200)
@@ -22,6 +26,13 @@ class ArticleImage(models.Model):
 	credit = models.CharField(max_length=200, blank=True)
 	caption = models.TextField(blank=True)
 	image = models.ImageField(upload_to=img_location)
+	display_image = FilteredImageField(
+		src_field=image,
+		filter_chain=[
+			ResizeFilter(**settings.ARTICLE_IMAGE_RESIZE),
+			TextWatermarkFilter(field_name='credit')
+		]
+	)
 
 def get_permalink_dict(article):
 	return {
