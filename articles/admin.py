@@ -4,7 +4,7 @@ from django import forms
 from ckeditor.widgets import CKEditor
 from html_field.forms.widget_helper import make_toolbar_config
 
-def article_admin(article_model):
+def article_admin_form(article_model):
 	base_allow_tags = ['a','h2','em','strong','ol','ul']
 	class ArticleAdminForm(forms.ModelForm):
 		class Meta:
@@ -25,9 +25,11 @@ def article_admin(article_model):
 					)
 				)
 			}
+	return ArticleAdminForm
 
+def article_admin(article_model):
 	class ArticleAdmin(admin.ModelAdmin):
-		form = ArticleAdminForm
+		form = article_admin_form(article_model)
 	
 	return ArticleAdmin
 
