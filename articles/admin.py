@@ -30,6 +30,7 @@ def article_admin_form(article_model):
 def article_admin(article_model):
 	class ArticleAdmin(admin.ModelAdmin):
 		form = article_admin_form(article_model)
+		prepopulated_fields = {"slug": ("title",)}
 	
 	return ArticleAdmin
 
