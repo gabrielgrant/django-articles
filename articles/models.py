@@ -14,6 +14,7 @@ class Article(models.Model):
 	body = models.TextField(blank=True)
 	pub_date = models.DateField('date published', default=date.today)
 	published = models.BooleanField(default=True)
+	last_modified = models.DateTimeField(auto_now=True)
 	
 	def __unicode__(self):
 		return self.title
