@@ -4,8 +4,16 @@ from django import forms
 from ckeditor.widgets import CKEditor
 from html_field.forms.widget_helper import make_toolbar_config
 
-def article_admin_form(article_model):
-	base_allow_tags = ['a','h2','em','strong','ol','ul']
+def article_admin_form(article_model, extra_blurb_tags=None, extra_body_tags=None):
+	base_allow_tags = ['a','h2','em','strong','ol','ul', 'img']
+	if extra_blurb_tags:
+		blurb_tags = base_allow_tags + extra_blurb_tags
+	else:
+		blurb_tags = base_allow_tags
+	if extra_blurb_tags:
+		body_tags = base_allow_tags + extra_blurb_tags
+	else:
+		body_tags = base_allow_tags
 	class ArticleAdminForm(forms.ModelForm):
 		class Meta:
 			model = article_model
@@ -13,14 +21,14 @@ def article_admin_form(article_model):
 				'blurb': CKEditor(
 					ckeditor_config=dict(width='750',
 						**make_toolbar_config(
-							allow_tags=base_allow_tags,
+							allow_tags=blurb_tags,
 						)
 					)
 				),
 				'body': CKEditor(
 					ckeditor_config=dict(width='750',
 						**make_toolbar_config(
-							allow_tags=base_allow_tags + ['img'],
+							allow_tags=body_tags,
 						)
 					)
 				)
