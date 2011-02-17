@@ -9,23 +9,33 @@ def get_patterns(info_dict, basename):
 	urlpatterns = patterns('',
 		url(
 			r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/(?P<day>\w{1,2})/(?P<slug>[\w-]+)/$',
-			ArticleDateView.as_view(**dict(info_dict, slug_field='slug')),
+			type(
+				'ArticleDateView', (ArticleDateView,), info_dict,
+			).as_view(**dict(slug_field='slug')),
 			name='%s_detail' % basename
 		),
 		url(r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/(?P<day>\w{1,2})/$',
-			DayArchiveView.as_view(**info_dict),
+			type(
+				'ArticleDayArchiveView', (DayArchiveView,), info_dict,
+			).as_view(),
 			name='%s_day' % basename
 		),
 		url(r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/$',
-			MonthArchiveView.as_view(**info_dict),
+			type(
+				'ArticleMonthArchiveView', (MonthArchiveView,), info_dict,
+			).as_view(),
 			name='%s_month' % basename
 		),
 		url(r'^(?P<year>\d{4})/$',
-			YearArchiveView.as_view(**info_dict),
+			type(
+				'ArticleYearArchiveView', (YearArchiveView,), info_dict,
+			).as_view(),
 			name='%s_year' % basename
 		),
 		url(r'^/?$',
-			ArchiveIndexView.as_view(**info_dict),
+			type(
+				'ArticleArchiveIndexView', (ArchiveIndexView,), info_dict,
+			).as_view(),
 			name='%s_index' % basename
 		),
 	)
