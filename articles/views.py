@@ -67,6 +67,9 @@ class ArticleDateView(BaseArticleView):
 	class Meta(BaseArticleView.Meta):
 		true_view_base = DateDetailView
 		false_view_class = DateDetailView
+
+# temporary fix
+ArticleDateView = BaseArticleView
 class ArticleSlugView(BaseArticleView):
 	pass
 	
