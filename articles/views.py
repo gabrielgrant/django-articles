@@ -37,6 +37,7 @@ class BaseArticleView(ConditionalDispatchView):
 	))
 	"""
 	template_name_suffix = '_article'
+	permanent = False
 	
 	@classonlymethod
 	def as_view(cls, **kwargs):
