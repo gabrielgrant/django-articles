@@ -39,6 +39,12 @@ def article_admin(article_model):
 	class ArticleAdmin(admin.ModelAdmin):
 		form = article_admin_form(article_model)
 		prepopulated_fields = {"slug": ("title",)}
+		date_hierarchy = 'pub_date'
+		list_display = ('__unicode__', 'pub_date', 'last_modified', 'published')
+		list_filter = ('published',)
+		ordering = ('-last_modified',)
+		save_on_top = True
+		search_fields = ['title']
 	
 	return ArticleAdmin
 
