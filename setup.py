@@ -8,7 +8,7 @@ setup(
     license='LGPL',
     long_description=open('README').read(),
     install_requires=[
-        'PIL',
+        'pillow',
         'django-inline-edit',
         'django-ckeditor',
         'django-ckeditor-filemodel-manager',
